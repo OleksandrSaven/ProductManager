@@ -9,10 +9,12 @@ import lombok.Setter;
 @Getter
 public class User {
     private Long id;
-    private String email;
-    private String password;
+    private String userName;
     private String firstName;
     private String lastName;
+    private String email;
+    private String password;
     private String address;
+    private String phone;
     private Set<Role> roles = new HashSet<>();
 }
