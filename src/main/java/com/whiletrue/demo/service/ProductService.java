@@ -2,7 +2,8 @@ package com.whiletrue.demo.service;
 
 import com.whiletrue.demo.dto.CreateProductRequestDto;
 import com.whiletrue.demo.dto.ProductDto;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
 
@@ -14,5 +15,6 @@ public interface ProductService {
 
     ProductDto update(Long id, CreateProductRequestDto requestDto);
 
-    List<ProductDto> findAll();
+    Page<ProductDto> findAll(Pageable pageable);
+
 }

@@ -7,8 +7,9 @@ import com.whiletrue.demo.mapper.ProductMapper;
 import com.whiletrue.demo.model.Product;
 import com.whiletrue.demo.repository.ProductRepository;
 import com.whiletrue.demo.service.ProductService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -44,7 +45,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> findAll() {
-        return List.of();
+    public Page<ProductDto> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable)
+                .map(productMapper::toDto);
     }
 }

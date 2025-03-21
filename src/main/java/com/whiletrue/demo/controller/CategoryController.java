@@ -23,8 +23,8 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping
-    public List<CategoryDto> getAllCategories() {
-        return categoryService.getAll();
+    public List<CategoryDto> findAll() {
+        return categoryService.findAll();
     }
 
     @GetMapping("/{id}")

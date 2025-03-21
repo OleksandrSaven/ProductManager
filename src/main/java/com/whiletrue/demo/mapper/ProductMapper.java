@@ -15,14 +15,6 @@ public interface ProductMapper {
 
     ProductDto toDto(Product product);
 
-    @AfterMapping
-    default void setCategoryIds(@MappingTarget ProductDto productDto, Product product) {
-        if (product.getCategories() != null) {
-            productDto.setCategoryIds(product.getCategories().stream()
-                    .map(Category::getId).collect(Collectors.toSet()));
-        }
-    }
-
     Product toModel(CreateProductRequestDto createProductRequestDto);
 
     @AfterMapping
@@ -31,6 +23,14 @@ public interface ProductMapper {
             product.setCategories(requestDto.getCategoryIds().stream()
                     .map(Category::new)
                     .collect(Collectors.toSet()));
+        }
+    }
+
+    @AfterMapping
+    default void setCategoryIds(@MappingTarget ProductDto productDto, Product product) {
+        if (product.getCategories() != null) {
+            productDto.setCategoryIds(product.getCategories().stream()
+                    .map(Category::getId).collect(Collectors.toSet()));
         }
     }
 }
