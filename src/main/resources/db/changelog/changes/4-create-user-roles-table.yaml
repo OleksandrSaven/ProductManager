@@ -1,24 +1,25 @@
 databaseChangeLog:
   - changeSet:
-      id: create-products-categories-table
+      id: create-user-role-table
       author: osa
       changes:
         - createTable:
-            tableName: products_categories
+            tableName: user_roles
             columns:
               - column:
-                  name: product_id
+                  name: user_id
                   type: bigint
                   constraints:
                     primaryKey: true
                     nullable: false
-                    references: products(id)
-                    foreignKeyName: fk_products_categories_product_id
+                    references: users(id)
+                    foreignKeyName: fk_user_roles_user_id
               - column:
-                  name: category_id
+                  name: role_id
                   type: bigint
                   constraints:
                     primaryKey: true
                     nullable: false
-                    references: categories(id)
-                    foreignKeyName: fk_products_categories_category_id
+                    references: roles(id)
+                    foreignKeyName: fk_user_roles_role_id
+

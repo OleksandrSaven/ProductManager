@@ -2,6 +2,14 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/1-create-products-table.yaml
   - include:
-      file: db/changelog/changes/2-create-categories-table.yaml
+      file: db/changelog/changes/2-create-users-table.yaml
   - include:
-      file: db/changelog/changes/3-create-products-categories-table.yaml
+      file: db/changelog/changes/3-create-roles-table.yaml
+  - include:
+      file: db/changelog/changes/4-create-user-roles-table.yaml
+  - include:
+      file: db/changelog/changes/5-insert-user-table.yaml
+  - include:
+      file: db/changelog/changes/6-insert-roles-table.yaml
+  - include:
+      file: db/changelog/changes/7-insert-user-roles-table.yaml

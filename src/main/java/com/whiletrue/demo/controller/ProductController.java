@@ -3,6 +3,7 @@ package com.whiletrue.demo.controller;
 import com.whiletrue.demo.dto.CreateProductRequestDto;
 import com.whiletrue.demo.dto.ProductDto;
 import com.whiletrue.demo.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ProductDto save(@RequestBody CreateProductRequestDto createProductRequestDto) {
+    public ProductDto save(@Valid @RequestBody CreateProductRequestDto createProductRequestDto) {
         return productService.save(createProductRequestDto);
     }
 
@@ -40,7 +41,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ProductDto update(@PathVariable Long id,
-                             @RequestBody CreateProductRequestDto requestDto) {
+                             @Valid @RequestBody CreateProductRequestDto requestDto) {
         return productService.update(id, requestDto);
     }
 

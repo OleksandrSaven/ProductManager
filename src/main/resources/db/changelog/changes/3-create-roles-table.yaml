@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-categories-table
+      id: create-roles-table
       author: osa
       changes:
         - createTable:
-            tableName: categories
+            tableName: roles
             columns:
               - column:
                   name: id
@@ -17,13 +17,5 @@ databaseChangeLog:
                   name: name
                   type: varchar(255)
                   constraints:
-                    nullable: false
-              - column:
-                  name: description
-                  type: varchar(255)
-              - column:
-                  name: deleted
-                  type: bit
-                  defaultValueBoolean: false
-                  constraints:
+                    unique: true
                     nullable: false
