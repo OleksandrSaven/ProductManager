@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-carts-cart_products-table
+      author: osa
+      changes:
+        - createTable:
+            tableName: carts-cart_products
+            columns:
+              - column:
+                  name: cart_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    foreignKeyName: fk_carts_cart_products_cart_id
+              - column:
+                  name: cart_product_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    foreignKeyName: fk_carts_cart_products_cart_product_id

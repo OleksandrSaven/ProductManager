@@ -6,9 +6,11 @@ import com.whiletrue.demo.dto.UserRegistrationResponseDto;
 import com.whiletrue.demo.exeption.EntityNotFoundException;
 import com.whiletrue.demo.exeption.RegistrationException;
 import com.whiletrue.demo.mapper.UserMapper;
+import com.whiletrue.demo.model.Cart;
 import com.whiletrue.demo.model.Role;
 import com.whiletrue.demo.model.RoleName;
 import com.whiletrue.demo.model.User;
+import com.whiletrue.demo.repository.CartRepository;
 import com.whiletrue.demo.repository.RoleRepository;
 import com.whiletrue.demo.repository.UserRepository;
 import com.whiletrue.demo.service.UserService;
@@ -25,6 +27,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final CartRepository cartRepository;
 
     @Override
     public UserRegistrationResponseDto registration(UserRegistrationRequestDto requestDto) {
@@ -45,6 +48,9 @@ public class UserServiceImpl implements UserService {
                 () -> new EntityNotFoundException("Can't find such role: " + RoleName.ROLE_USER));
         roles.add(userRole);
 
+        Cart cart = new Cart();
+        cart.setUser(user);
+        cartRepository.save(cart);
         user.setRoles(roles);
 
         return userMapper.toDto(userRepository.save(user));

@@ -13,3 +13,9 @@ databaseChangeLog:
       file: db/changelog/changes/6-insert-roles-table.yaml
   - include:
       file: db/changelog/changes/7-insert-user-roles-table.yaml
+  - include:
+      file: db/changelog/changes/8-create-carts-table.yaml
+  - include:
+      file: db/changelog/changes/9-create-cart-products-table.yaml
+  - include:
+      file: db/changelog/changes/10-create-carts-carts_products-table.yaml

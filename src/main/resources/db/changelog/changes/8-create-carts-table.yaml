@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-products-table
+      id: create-cart-table
       author: osa
       changes:
         - createTable:
-            tableName: products
+            tableName: carts
             columns:
               - column:
                   name: id
@@ -14,23 +14,12 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: name
-                  type: varchar(255)
+                  name: user_id
+                  type: bigint
                   constraints:
                     nullable: false
-              - column:
-                  name: description
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: price
-                  type: decimal(38, 2)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: img_url
-                  type: varchar(255)
+                    references: users(id)
+                    foreignKeyName: fk_cart_user_id
               - column:
                   name: deleted
                   type: bit

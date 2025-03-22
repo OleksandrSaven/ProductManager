@@ -43,6 +43,6 @@ databaseChangeLog:
               - column:
                   name: deleted
                   type: bit
-                  defaultValue: false
+                  defaultValueBoolean: false
                   constraints:
                     nullable: false
