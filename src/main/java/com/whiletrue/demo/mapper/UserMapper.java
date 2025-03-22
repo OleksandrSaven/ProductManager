@@ -1,6 +1,7 @@
 package com.whiletrue.demo.mapper;
 
 import com.whiletrue.demo.config.MapperConfig;
+import com.whiletrue.demo.dto.UserInfoDto;
 import com.whiletrue.demo.dto.UserRegistrationResponseDto;
 import com.whiletrue.demo.model.User;
 import org.mapstruct.Mapper;
@@ -9,4 +10,6 @@ import org.mapstruct.Mapper;
 public interface UserMapper {
 
     UserRegistrationResponseDto toDto(User user);
+
+    UserInfoDto toInfoDto(User user);
 }

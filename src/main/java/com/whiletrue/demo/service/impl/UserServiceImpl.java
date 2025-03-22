@@ -1,5 +1,6 @@
 package com.whiletrue.demo.service.impl;
 
+import com.whiletrue.demo.dto.UserInfoDto;
 import com.whiletrue.demo.dto.UserRegistrationRequestDto;
 import com.whiletrue.demo.dto.UserRegistrationResponseDto;
 import com.whiletrue.demo.exeption.EntityNotFoundException;
@@ -14,6 +15,7 @@ import com.whiletrue.demo.service.UserService;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +24,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserRegistrationResponseDto registration(UserRegistrationRequestDto requestDto) {
@@ -35,7 +38,7 @@ public class UserServiceImpl implements UserService {
         user.setLastName(requestDto.getLastName());
         user.setAddress(requestDto.getAddress());
         user.setPhone(requestDto.getPhone());
-        user.setPassword(requestDto.getPassword());
+        user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
 
         Set<Role> roles = new HashSet<>();
         Role userRole = roleRepository.findByRoleName(RoleName.ROLE_USER).orElseThrow(
@@ -45,5 +48,23 @@ public class UserServiceImpl implements UserService {
         user.setRoles(roles);
 
         return userMapper.toDto(userRepository.save(user));
+    }
+
+    @Override
+    public UserInfoDto aboutMe(User user) {
+        return new UserInfoDto(user.getFirstName(), user.getLastName(),
+                user.getEmail(), user.getAddress(), user.getPhone());
+    }
+
+    @Override
+    public UserInfoDto info(Long id) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Can't find user with id " + id));
+        return userMapper.toInfoDto(user);
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.whiletrue.demo.exeption;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +43,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 HttpStatus.NOT_FOUND,
                 List.of(exception.getMessage()));
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<Object> handleSqlIntegrityConstraintViolation(
+            SQLIntegrityConstraintViolationException ex) {
+        ErrorResponse response = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.CONFLICT,
+                List.of(ex.getMessage())
+        );
+        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 
     private String getErrorMessage(ObjectError e) {

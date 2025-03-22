@@ -4,7 +4,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.Set;
 import lombok.Data;
 
 @Data
@@ -17,5 +16,4 @@ public class CreateProductRequestDto {
     @Min(0)
     private BigDecimal price;
     private String imgUrl;
-    private Set<Long> categoryIds;
 }
