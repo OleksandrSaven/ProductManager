@@ -17,8 +17,11 @@ import com.whiletrue.demo.service.UserService;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +33,7 @@ public class UserServiceImpl implements UserService {
     private final CartRepository cartRepository;
 
     @Override
+    @Transactional
     public UserRegistrationResponseDto registration(UserRegistrationRequestDto requestDto) {
         if (userRepository.findByEmail(requestDto.getEmail()).isPresent()) {
             throw new RegistrationException("Unable to complete registration.");
@@ -72,5 +76,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public User getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return userRepository.findByEmail(authentication.getName()).orElseThrow(
+                () -> new EntityNotFoundException("Can't find user with email "
+                        + authentication.getName()));
     }
 }

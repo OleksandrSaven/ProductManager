@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-order_products-table
+      author: osa
+      changes:
+        - createTable:
+            tableName: order_products
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: orders(id)
+                    foreignKeyName: fk_order_products_order_id
+              - column:
+                  name: quantity
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: products(id)
+                    foreignKeyName: fk_order_products_product_id
+              - column:
+                  name: price
+                  type: decimal(38, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: deleted
+                  type: bit
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false

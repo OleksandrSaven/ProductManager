@@ -1,6 +1,8 @@
 package com.whiletrue.demo.service.impl;
 
 import com.whiletrue.demo.dto.CartDto;
+import com.whiletrue.demo.dto.CartProductDto;
+import com.whiletrue.demo.dto.CreateCartProductRequestDto;
 import com.whiletrue.demo.exeption.EntityNotFoundException;
 import com.whiletrue.demo.model.Cart;
 import com.whiletrue.demo.model.User;
@@ -28,5 +30,10 @@ public class CartServiceImpl implements CartService {
         cartDto.setUserId(currentUser.getId());
         cartDto.setCartProducts(cartProductService.findCartProductsByCart(cart.getId()));
         return cartDto;
+    }
+
+    @Override
+    public CartProductDto save(CreateCartProductRequestDto requestDto) {
+        return cartProductService.save(requestDto);
     }
 }
