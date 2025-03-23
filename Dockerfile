@@ -7,10 +7,7 @@ RUN java -Djarmode=layertools -jar application.jar extract
 
 # Final stage
 FROM openjdk:17-jdk-alpine
-WORKDIR application
-COPY --from=builder application/dependencies/ ./
-COPY --from=builder application/spring-boot-loader/ ./
-COPY --from=builder application/snapshot-dependencies/ ./
-COPY --from=builder application/application/ ./
-ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
+WORKDIR /application
+COPY --from=builder /application/application.jar /application.jar
+ENTRYPOINT ["java", "-jar", "/application.jar"]
 EXPOSE 8080
