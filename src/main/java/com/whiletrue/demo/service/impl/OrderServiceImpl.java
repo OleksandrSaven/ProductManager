@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +54,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Cacheable(value = "ordersCache", key = "'allOrders'", unless = "#result == null")
     public List<OrderDto> findAll() {
         return orderRepository.findAll().stream()
                  .map(orderMapper::toDto)
@@ -60,6 +62,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Cacheable(value = "userOrdersCache", key = "#authentication.principal.id",
+            unless = "#result == null")
     public List<OrderDto> findMy(Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
         return orderRepository.findOrderByUserId(currentUser.getId()).stream()
@@ -68,6 +72,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Cacheable(value = "userOrdersCache", key = "#userId", unless = "#result == null")
     public List<OrderDto> findByUserId(Long userId) {
         userRepository.findById(userId).orElseThrow(
                 () -> new EntityNotFoundException("Can't find user with id " + userId));
@@ -77,6 +82,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Cacheable(value = "ordersCache", key = "#id", unless = "#result == null")
     public OrderDto findById(Long id) {
         return orderMapper.toDto(orderRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't find order with id " + id)));

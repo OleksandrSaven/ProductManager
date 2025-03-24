@@ -8,6 +8,7 @@ import com.whiletrue.demo.model.Product;
 import com.whiletrue.demo.repository.ProductRepository;
 import com.whiletrue.demo.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable(value = "productsCache", key = "#id", unless = "#result == null")
     public ProductDto findById(Long id) {
         return productMapper.toDto(productRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't find product with id " + id)));
@@ -45,6 +47,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable(value = "productsCache", key = "#pageable.pageNumber + '-' + #pageable.pageSize")
     public Page<ProductDto> findAll(Pageable pageable) {
         return productRepository.findAll(pageable)
                 .map(productMapper::toDto);

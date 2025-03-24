@@ -17,6 +17,7 @@ import com.whiletrue.demo.service.UserService;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -61,6 +62,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Cacheable(value = "userInfoCache", key = "#user.id", unless = "#result == null")
     public UserInfoDto aboutMe(User user) {
         return new UserInfoDto(user.getFirstName(), user.getLastName(),
                 user.getEmail(), user.getAddress(), user.getPhone());

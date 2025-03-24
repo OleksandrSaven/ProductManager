@@ -49,7 +49,7 @@ public class ProductController {
 
     @Operation(summary = "Change information about product", description = "Return changed product")
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_MANAGER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ProductDto update(@PathVariable Long id,
                              @Valid @RequestBody CreateProductRequestDto requestDto) {
         return productService.update(id, requestDto);
