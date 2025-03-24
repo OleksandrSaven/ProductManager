@@ -14,6 +14,8 @@ This project is built using a variety of technologies and tools. Here's an overv
 
 - **Database**: The project uses a relational database MySQL to store book and user data. The choice of database can be configured to fit your requirements.
 
+-**Caffeine Cache**: Caffeine cache is a high-performance cache library for Java.
+
 - **Maven**: Maven is used for project management and dependency resolution. It simplifies the build and package process.
 -
 - ## How to use
