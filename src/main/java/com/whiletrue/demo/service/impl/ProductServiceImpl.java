@@ -2,7 +2,7 @@ package com.whiletrue.demo.service.impl;
 
 import com.whiletrue.demo.dto.CreateProductRequestDto;
 import com.whiletrue.demo.dto.ProductDto;
-import com.whiletrue.demo.exeption.EntityNotFoundException;
+import com.whiletrue.demo.exception.EntityNotFoundException;
 import com.whiletrue.demo.mapper.ProductMapper;
 import com.whiletrue.demo.model.Product;
 import com.whiletrue.demo.repository.ProductRepository;
@@ -12,6 +12,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
 
     @Override
+    @Transactional
     public ProductDto save(CreateProductRequestDto productRequestDto) {
         return productMapper.toDto(
                 productRepository.save(productMapper.toModel(productRequestDto)));
@@ -33,11 +35,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         productRepository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public ProductDto update(Long id, CreateProductRequestDto requestDto) {
         productRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't find entity with id " + id));

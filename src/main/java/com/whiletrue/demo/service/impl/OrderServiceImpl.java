@@ -2,8 +2,8 @@ package com.whiletrue.demo.service.impl;
 
 import com.whiletrue.demo.dto.OrderDto;
 import com.whiletrue.demo.dto.OrderStatusDto;
-import com.whiletrue.demo.exeption.EntityNotFoundException;
-import com.whiletrue.demo.exeption.ValidationException;
+import com.whiletrue.demo.exception.EntityNotFoundException;
+import com.whiletrue.demo.exception.ValidationException;
 import com.whiletrue.demo.mapper.OrderMapper;
 import com.whiletrue.demo.model.Cart;
 import com.whiletrue.demo.model.Order;
@@ -89,6 +89,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public OrderDto updateStatus(Long id, OrderStatusDto orderStatusDto) {
         Order order = orderRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't find order with id " + id));

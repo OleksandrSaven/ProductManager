@@ -1,4 +1,4 @@
-package com.whiletrue.demo.exeption;
+package com.whiletrue.demo.exception;
 
 import java.time.LocalDateTime;
 import java.util.List;

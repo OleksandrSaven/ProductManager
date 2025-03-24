@@ -3,7 +3,7 @@ package com.whiletrue.demo.service.impl;
 import com.whiletrue.demo.dto.CartDto;
 import com.whiletrue.demo.dto.CartProductDto;
 import com.whiletrue.demo.dto.CreateCartProductRequestDto;
-import com.whiletrue.demo.exeption.EntityNotFoundException;
+import com.whiletrue.demo.exception.EntityNotFoundException;
 import com.whiletrue.demo.model.Cart;
 import com.whiletrue.demo.model.User;
 import com.whiletrue.demo.repository.CartRepository;
@@ -12,6 +12,7 @@ import com.whiletrue.demo.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +34,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional
     public CartProductDto save(CreateCartProductRequestDto requestDto) {
         return cartProductService.save(requestDto);
     }

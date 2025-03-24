@@ -1,4 +1,4 @@
-package com.whiletrue.demo.exeption;
+package com.whiletrue.demo.exception;
 
 public class EntityNotFoundException extends RuntimeException {
     public EntityNotFoundException(String message) {

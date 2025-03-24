@@ -2,7 +2,7 @@ package com.whiletrue.demo.security;
 
 import com.whiletrue.demo.dto.UserLoginRequestDto;
 import com.whiletrue.demo.dto.UserLoginResponseDto;
-import com.whiletrue.demo.exeption.RegistrationException;
+import com.whiletrue.demo.exception.RegistrationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

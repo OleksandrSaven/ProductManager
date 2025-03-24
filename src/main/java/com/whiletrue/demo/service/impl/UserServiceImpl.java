@@ -3,8 +3,8 @@ package com.whiletrue.demo.service.impl;
 import com.whiletrue.demo.dto.UserInfoDto;
 import com.whiletrue.demo.dto.UserRegistrationRequestDto;
 import com.whiletrue.demo.dto.UserRegistrationResponseDto;
-import com.whiletrue.demo.exeption.EntityNotFoundException;
-import com.whiletrue.demo.exeption.RegistrationException;
+import com.whiletrue.demo.exception.EntityNotFoundException;
+import com.whiletrue.demo.exception.RegistrationException;
 import com.whiletrue.demo.mapper.UserMapper;
 import com.whiletrue.demo.model.Cart;
 import com.whiletrue.demo.model.Role;
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserRegistrationResponseDto registration(UserRegistrationRequestDto requestDto) {
-        if (userRepository.findByEmail(requestDto.getEmail()).isPresent()) {
+        if (userRepository.findByEmailIgnoreDelete(requestDto.getEmail()).isPresent()) {
             throw new RegistrationException("Unable to complete registration.");
         }
 
@@ -76,6 +76,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }

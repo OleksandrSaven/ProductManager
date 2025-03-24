@@ -1,6 +1,6 @@
 package com.whiletrue.demo.security;
 
-import com.whiletrue.demo.exeption.EntityNotFoundException;
+import com.whiletrue.demo.exception.EntityNotFoundException;
 import com.whiletrue.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

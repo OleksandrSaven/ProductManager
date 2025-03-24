@@ -30,6 +30,7 @@ public class ProductController {
 
     @Operation(summary = "Create new product", description = "Return saved product")
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_MANAGER')")
     public ProductDto save(@Valid @RequestBody CreateProductRequestDto createProductRequestDto) {
         return productService.save(createProductRequestDto);

@@ -3,7 +3,7 @@ package com.whiletrue.demo.service.impl;
 import com.whiletrue.demo.dto.CartProductDto;
 import com.whiletrue.demo.dto.CreateCartProductRequestDto;
 import com.whiletrue.demo.dto.UpdateCartItemQuantityDto;
-import com.whiletrue.demo.exeption.EntityNotFoundException;
+import com.whiletrue.demo.exception.EntityNotFoundException;
 import com.whiletrue.demo.mapper.CartProductMapper;
 import com.whiletrue.demo.model.Cart;
 import com.whiletrue.demo.model.CartProduct;
@@ -50,6 +50,7 @@ public class CartProductServiceImpl implements CartProductService {
     }
 
     @Override
+    @Transactional
     public CartProductDto update(Long id, UpdateCartItemQuantityDto quantityDto) {
         CartProduct cartProduct = cartProductRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't find cartProduct with id " + id));
@@ -58,6 +59,7 @@ public class CartProductServiceImpl implements CartProductService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         Long userId = userService.getAuthenticatedUser().getId();
         cartProductRepository.delete(
