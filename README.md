@@ -17,7 +17,7 @@ This project is built using a variety of technologies and tools. Here's an overv
 - **Caffeine Cache**: Caffeine cache is a high-performance cache library for Java.
 
 - **Maven**: Maven is used for project management and dependency resolution. It simplifies the build and package process.
--
+
 - ## How to use
 
 Clone the project's repository from a version control system like Git.
